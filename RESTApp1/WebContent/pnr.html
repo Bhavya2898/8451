@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>PNR Status</title>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script>
+$(function(){
+	$("form").submit(function(evt){
+		evt.preventDefault();
+		var pnrNo=$("#pnrNo").val();
+		alert(pnrNo);
+		var url="http://localhost:8181/RESTApp1/api/pnr?pnrNo="+pnrNo;
+		$.ajax({
+			url:url,
+			method:'GET',
+			success:function(data){
+				var elemt1=$("<p/>").text("Travel Data :"+data.trainNo)
+				$("#result").append(elemt1);
+				var i;
+				for(i in data.passengers)
+				{
+					alert(data.passengers[i].name);
+				}
+			}
+			
+		})
+	})
+	
+})
+</script>
+</head>
+<body>
+<form>
+Enter PNR No :<input type="number" id="pnrNo"/><br/>
+<button type="submit">Show status</button>
+
+</form>
+<div id="result">
+
+</div>
+</body>
+</html>
